@@ -1,0 +1,50 @@
+{
+  "name": "Streaming beam Python flex template",
+  "description": "Streaming beam example for python flex template.",
+  "parameters": [
+    {
+      "name": "input_subscription",
+      "label": "Input PubSub subscription.",
+      "helpText": "Name of the input PubSub subscription to consume from."
+    },
+    {
+      "name": "output_table",
+      "label": "BigQuery output table name.",
+      "helpText": "Name of the BigQuery output table name.",
+      "isOptional": true,
+      "regexes": [
+        "([^:]+:)?[^.]+[.].+"
+      ]
+    },
+    {
+      "name": "group_id",
+      "label": "group_id",
+      "helpText": "group_id"
+    },
+    {
+      "name": "start_read_time",
+      "label": "start_read_time",
+      "helpText": "start_read_time"
+    },
+    {
+      "name": "commit_offset_in_finalize",
+      "label": "commit_offset_in_finalize",
+      "helpText": "commit_offset_in_finalize"
+    },
+    {
+      "name": "with_metadata",
+      "label": "with_metadata",
+      "helpText": "with_metadata"
+    },
+    {
+      "name": "bootstrap_servers",
+      "label": "bootstrap_servers",
+      "helpText": "bootstrap_servers"
+    },
+    {
+      "name": "allow_fail",
+      "label": "allow_fail",
+      "helpText": "allow_fail"
+    }
+  ]
+}
