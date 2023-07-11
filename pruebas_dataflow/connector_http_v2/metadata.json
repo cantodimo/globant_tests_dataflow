@@ -15,6 +15,21 @@
       "regexes": [
         "([^:]+:)?[^.]+[.].+"
       ]
+    },
+    {
+      "name": "url",
+      "label": "url",
+      "helpText": "url"
+    },
+    {
+      "name": "method",
+      "label": "method",
+      "helpText": "method"
+    },
+    {
+      "name": "batch",
+      "label": "batch",
+      "helpText": "batch"
     }
   ]
 }

@@ -27,7 +27,7 @@ def publish_messages_with_batch_settings(project_id: str, topic_id: str) -> None
         message_id = future.result()
         print(message_id)
 
-    for n in range(100, 20000):
+    for n in range(1, 2):
         data_str = json.dumps({"id_request":n, "prob_continuar": 100 })
         # Data must be a bytestring
         data = data_str.encode("utf-8")
@@ -40,4 +40,4 @@ def publish_messages_with_batch_settings(project_id: str, topic_id: str) -> None
 
     print(f"Published messages with batch settings to {topic_path}.")
 
-publish_messages_with_batch_settings("rosy-zoo-390619", "messages_dataflow_streaming_docker")
+publish_messages_with_batch_settings("rosy-zoo-390619", "http_connector_v2")

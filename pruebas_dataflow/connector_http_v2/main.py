@@ -63,6 +63,7 @@ class custom_RestrictionTracker(OffsetRestrictionTracker):
         return False
 
 def call_api( data, url, method, headers):
+    logging.warning( "data received: " + str(data) + " -- url: " + url + " -- method: " + method + " -- headers: " + str(headers) + " -- type: " + str(type(headers)) )
     ## data is a json containing the body and another info asociated to the request that we want to 
     ## propagate 
 
@@ -73,6 +74,7 @@ def call_api( data, url, method, headers):
     #}
 
     response = requests.request(method, url, headers=headers, data=payload)
+    logging.warning( "response.text: " + str(response.text) + " -- type: " + str(type(response.text)) )
     return json.loads(response.text), data
 
 class test_splittable_pardo(beam.DoFn, RestrictionProvider):
@@ -142,12 +144,13 @@ class test_splittable_pardo(beam.DoFn, RestrictionProvider):
         return out
 
 class HttpConnector(beam.PTransform):
-    def __init__(self, url, method, headers, batch):
+    def __init__(self, url, headers, method, batch):
         if batch < 1:
             raise ValueError('batch size must be >=1')
         self.batch= batch
         self.url= url
         self.method= method
+        self.headers= headers
 
     def expand(self, pcoll):
         if self.batch == 1:
@@ -157,18 +160,19 @@ class HttpConnector(beam.PTransform):
             ## crear global window con aftercount= batch, y discard para no llenar la memoria
             input_pcoll= pcoll # mientras tanto
 
-        out_pcoll= input_pcoll | Map(call_api, self.url, self.method, self.headers)
+        out_pcoll= input_pcoll | beam.Map(call_api, self.url, self.method, self.headers)
 
         return out_pcoll
 
 def format_output(out_http, date_job):
-    {
-        "id_request": out_http[1]["id_request"],
-        "prob_to_continue": int(out_http[1]["prob_continuar"]),
-        "position": 1,
+    return {
+        "id_request": str(out_http[1]["body"]["id_request"]),
+        "prob_to_continue": int(out_http[1]["body"]["prob_continuar"]),
+        "position": int(1),
         "date_job": str([d for d in date_job]),
-        "datetime_get_page": out_http[0]["datetime_get_page"]
+        "datetime_get_page": str(out_http[0]["datetime_get_page"])
     } 
+    
 
 
 def run(
@@ -180,6 +184,12 @@ def run(
     batch: str,
     beam_args: list[str] = None,
 ) -> None:
+    
+    ## latter I keep trying to pass a json on input parameters
+    headers = {
+        'Content-Type': 'application/json'
+    }
+    
     """Build and run the pipeline."""
     options = PipelineOptions(beam_args, save_main_session=True, streaming=True, )
 
@@ -199,7 +209,7 @@ def run(
             | "UTF-8 bytes to json" >> beam.Map(lambda msg: json.loads(msg.decode("utf-8")))
             | "formtat input request" >> beam.Map( lambda x: { "body": x})
             #| "test pardo" >> beam.ParDo(test_splittable_pardo(num_pages_max= 10000), AsList(date_job_pcoll))
-            | "http_connector" >> HttpConnector(url=url, method=method, batch=batch)
+            | "http_connector" >> HttpConnector(url=url, headers= headers, method=method, batch=batch)
             | "format output" >> beam.Map(format_output, AsList(date_job_pcoll))
             | "Fixed-size windows"
             >> beam.WindowInto(window.FixedWindows(window_interval_sec, 0))
@@ -236,6 +246,11 @@ if __name__ == "__main__":
         type=str,
         help="url to make http calls",
     )
+    #parser.add_argument(
+    #    "--headers",
+    #    type=json.loads,
+    #    help="json string with headers",
+    #)
     parser.add_argument(
         "--method",
         type=str,

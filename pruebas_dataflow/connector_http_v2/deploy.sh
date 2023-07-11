@@ -28,6 +28,11 @@ gcloud dataflow flex-template run "http-connector-v2" \
     --template-file-gcs-location "$TEMPLATE_PATH" \
     --parameters input_subscription="projects/$PROJECT/subscriptions/$TOPIC" \
     --parameters output_table="$PROJECT:$DATASET.$TABLE" \
+    --parameters url="https://us-central1-rosy-zoo-390619.cloudfunctions.net/api-rest-dummy" \
+    --parameters method="post" \
+    --parameters batch=1 \
     --max-workers 2 \
-    --sdk_location container \ 
     --region "$REGION" #--update
+
+    #--sdk_location container \ no reconoce esta opcion
+    #--parameters headers= '{"Content-Type": "application/json"}' no lo coje bien
