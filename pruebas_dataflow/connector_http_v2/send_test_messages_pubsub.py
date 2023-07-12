@@ -27,7 +27,7 @@ def publish_messages_with_batch_settings(project_id: str, topic_id: str) -> None
         message_id = future.result()
         print(message_id)
 
-    for n in range(1, 2):
+    for n in range(1, 300):
         data_str = json.dumps({"id_request":n, "prob_continuar": 100 })
         # Data must be a bytestring
         data = data_str.encode("utf-8")

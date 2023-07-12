@@ -30,7 +30,7 @@ gcloud dataflow flex-template run "http-connector-v2" \
     --parameters output_table="$PROJECT:$DATASET.$TABLE" \
     --parameters url="https://us-central1-rosy-zoo-390619.cloudfunctions.net/api-rest-dummy" \
     --parameters method="post" \
-    --parameters batch=1 \
+    --parameters batch=10 \
     --max-workers 2 \
     --region "$REGION" #--update
 
