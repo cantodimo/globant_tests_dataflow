@@ -12,7 +12,7 @@ export REGION="us-east1"
 #export REGION="us-west1"
 
 # Run the Flex Template.
-gcloud dataflow flex-template run "http-connector-v2" \
+gcloud dataflow flex-template run "http-connector-v2-batch" \
     --template-file-gcs-location "$TEMPLATE_PATH" \
     --parameters input_subscription="projects/$PROJECT/subscriptions/$TOPIC" \
     --parameters output_table="$PROJECT:$DATASET.$TABLE" \
