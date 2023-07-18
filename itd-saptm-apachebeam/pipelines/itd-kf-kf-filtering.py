@@ -41,7 +41,7 @@ def run(
     password
     ) -> None:
 
-    options = PipelineOptions(save_main_session=True, streaming=True)
+    options = PipelineOptions(save_main_session=True, streaming=True, runner=beam.runners.DirectRunner() )
 
     with beam.Pipeline(options=options) as p:
 
@@ -60,10 +60,18 @@ def run(
             consumer_config["sasl.jaas.config"]= credentials
             
         topics = topics.split(",")
+        
+        consumer_config_hardcoded = {
+            "bootstrap.servers": "pkc-lgk0v.us-west1.gcp.confluent.cloud:9092",
+            "group.id": "k_itd_ren_saptm_poc_dev_svc",
+            "sasl.mechanism": "PLAIN",
+            "security.protocol": "SASL_SSL",
+            "sasl.jaas.config": 'org.apache.kafka.common.security.plain.PlainLoginModule required serviceName="Kafka" username="FQLECRTXM6NS7EHY" password="LJ+HrWWdLIuDSZH0TkLF6mXBbSUDL5RfaMR4GNMJNfx1gRtdjWb5vZEim8gjUiLk";'
+    }
 
         stream_data = (p
                        | "Reading messages from Kafka" >> ReadFromKafka(
-                    consumer_config=consumer_config,
+                    consumer_config=consumer_config_hardcoded,
                     topics=topics,
                     with_metadata=False,
                     max_num_records=2
