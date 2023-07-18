@@ -1,0 +1,44 @@
+{
+  "name": "itd-kf-kf-filtering Python flex template",
+  "description": "test",
+  "parameters": [
+    {
+      "name": "bootstrap_servers",
+      "label": "bootstrap_servers",
+      "helpText": "Example: localhost:9200"
+    },
+    {
+      "name": "group_id",
+      "label": "group_id",
+      "helpText": "Example: group1"
+    },
+    {
+      "name": "topics",
+      "label": "topics",
+      "helpText": "Example: topic1,topic2"
+    },
+    {
+      "name": "sasl_mechanism",
+      "label": "sasl_mechanism",
+      "helpText": "Example: PLAIN",
+      "isOptional": true  
+    },
+    {
+      "name": "security_protocol",
+      "label": "security_protocol",
+      "helpText": "Example: SASL_SSL",
+      "isOptional": true
+    },
+    {
+      "name": "username",
+      "label": "username",
+      "helpText": "Example: user1",
+      "isOptional": true
+    },
+    {
+      "name": "password",
+      "label": "password",
+      "helpText": "Example: password1",
+      "isOptional": true
+    }]
+}
