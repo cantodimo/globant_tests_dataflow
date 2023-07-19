@@ -7,7 +7,7 @@ import logging
 import sys
 sys.path.append('/itd-saptm-apachebeam')
 sys.path.append('/itd-saptm-apachebeam/data_quality')
-from data_quality.test_dq import test_dq
+from data_quality.filtering import filter_kakfa_messages
 from typing import Any
 import typing
 import json
@@ -32,27 +32,16 @@ class Message():
     dq_country: str
     cleansed_address: str
 
-
-#def compare_messages(string_message, columns_to_compare):
 class compare_messages(beam.DoFn):
     def __init__(self, columns_to_compare_this_topic):
       self.columns_to_compare_this_topic= columns_to_compare_this_topic
     
     def process(self, element):
         logging.warning( " message received: " + element )
-        kafka_message= json.loads( element )
-        new_data_dict= kafka_message["message"]["data"]
-        old_data_dict= kafka_message["message"]["beforeData"]
-        new_data= [ new_data_dict[x] for x in self.columns_to_compare_this_topic ]
-        old_data= [ old_data_dict[x] for x in self.columns_to_compare_this_topic ]
-        if True: #new_data == old_data:
+        new_message= filter_kakfa_messages.filter_v1(element, self.columns_to_compare_this_topic)
+        if new_message is not None:
             logging.warning( " message sended: " + element )
-            yield json.dumps( kafka_message )
-
-    
-#def logging_dq(element):
-#    logging.warning(test_dq.test_method(element[1].decode('UTF-8')))
-#    return element
+            yield json.dumps( new_message )
 
 def run(
     bootstrap_servers,
@@ -103,7 +92,7 @@ def run(
             topic= topics[i]
             columns_to_compare_this_topic= columns[i].split("|")
             _ = (
-                p| "Reading topic: " + topic >> ReadFromKafka(
+                p| " v5 Reading topic: " + topic >> ReadFromKafka(
                     consumer_config=consumer_config,
                     topics=[topic],
                     start_read_time=start_read_time,

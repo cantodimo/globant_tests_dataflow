@@ -21,15 +21,15 @@ if True:
     print( "Offset:", message.offset)
     print( "Value:", message.value)
     
-    value= json.loads(message.value.decode("utf-8"))["message"]
-    if int(value) not in list(dic_messages.keys()):
-        dic_messages[ int(value) ]= 1
-    else:
-        dic_messages[ int(value) ]= dic_messages[ int(value) ] + 1
+#    value= json.loads(message.value.decode("utf-8"))["message"]
+#    if int(value) not in list(dic_messages.keys()):
+#        dic_messages[ int(value) ]= 1
+#    else:
+#        dic_messages[ int(value) ]= dic_messages[ int(value) ] + 1
         
     if message.offset == lastOffset - 1:
         break
 
-with open("salida_consumer.txt", "w") as f:
-    for k in sorted( list(dic_messages.keys()) ):
-        f.write("value: " + str(k) + " count: " + str(dic_messages[k]) + "\n")
+#with open("salida_consumer.txt", "w") as f:
+#    for k in sorted( list(dic_messages.keys()) ):
+#        f.write("value: " + str(k) + " count: " + str(dic_messages[k]) + "\n")

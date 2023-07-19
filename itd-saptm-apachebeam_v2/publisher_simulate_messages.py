@@ -1,8 +1,9 @@
 from kafka import KafkaConsumer, KafkaProducer, TopicPartition  
 from datetime import datetime
 import json
+import copy
 
-base_message= { 
+base_message_original= { 
     "magic": "atMSG",
     "type": "DT",
     "headers": None,
@@ -59,9 +60,28 @@ base_message= {
     }
 }
 
+base_message= { 
+    "message": { 
+        "data": { 
+            "item_no": "AAL614",
+            "mfg_div_cd": "C"
+        },
+        "beforeData": {
+            "item_no": "AAL614",
+            "mfg_div_cd": "C"
+        }, 
+        "headers": { 
+            "timestamp": "2023-03-21T21:34:19.511",
+            "transactionEventCounter": 1
+        }
+    }
+}
+
+
+
 topics= {
-    "test-kafka-resume-job-3-partitions_tp2": ["item_no", "mfg_div_cd"],
-    "test-kafka-resume-job-3-partitions_tp3": ["phys_loc_cd", "plnr_cd"],
+    "test-kafka-resume-job-3-partitions_tp2": ["item_no", "mfg_div_cd"]
+#    ,"test-kafka-resume-job-3-partitions_tp3": ["phys_loc_cd", "plnr_cd"],
 }
 
 #topic= "test-kafka-resume-job-multiple-partitions" #10 partitions
@@ -69,19 +89,21 @@ client = ["35.193.114.205:9092"]
 
 p= KafkaProducer(bootstrap_servers=client, api_version=(0,11,5))
 for tp in list(topics.keys()):
-    for i in range(0,50,1):
-        m= dict(base_message)
+    for i in range(0,10,1):
+        m=  copy.deepcopy(base_message)
         m["message"]["headers"]["transactionEventCounter"]= i
         m["message"]["headers"]["timestamp"]= datetime.now().strftime("%Y-%m-%D %H-%M-%S")
-        if i%3==0:
+        if i%2==0:
             ## editing data to create updated mensajes
             for columna in topics[tp]:
-                m["message"]["data"][columna]= m["message"]["data"][columna] + m["message"]["data"][columna]  
+                m["message"]["data"][columna]= m["message"]["data"][columna] + "update"
     
         p.send(tp , value= json.dumps(m).encode("utf-8"))
+        #print(m)
         print(i)
-        
-        if i%20 ==0:
+        if i%10 ==0:
             p.flush()
+            
+        del m
             
 p.flush()
