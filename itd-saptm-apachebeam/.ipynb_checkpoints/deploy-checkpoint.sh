@@ -17,7 +17,7 @@ gcloud dataflow flex-template build $TEMPLATE_PATH \
   --sdk-language "PYTHON" \
   --metadata-file "metadata/itd-kf-kf-filtering.json"
 
-export REGION="us-east1"
+export REGION="us-central1"
 
 # Run the Flex Template.
 gcloud dataflow flex-template run "itd-kf-kf-filtering" \
@@ -26,7 +26,7 @@ gcloud dataflow flex-template run "itd-kf-kf-filtering" \
     --region "$REGION" \
     --parameters bootstrap_servers="35.193.114.205:9092" \
     --parameters group_id="test-consumer-group" \
-    --parameters topics="test-kafka-resume-job" \
+    --parameters topics="kt_itd_dev_qlikdb2_asi_prddtaasi.dopcmst0_1" \
 #    --parameters sasl_mechanism= "" \
 #    --parameters security_protocol= "" \
 #    --parameters username= "" \

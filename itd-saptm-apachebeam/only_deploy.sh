@@ -8,7 +8,9 @@ export BUCKET="dataflow_bucket_camilo_diaz"
 export TEMPLATE_IMAGE="gcr.io/$PROJECT/itd-saptm-apachebeam/streaming:latest"
 
 export TEMPLATE_PATH="gs://$BUCKET/itd-saptm-apachebeam/streaming.json"
-export REGION="us-east1"
+#export REGION="us-east1"
+#export REGION="us-west1"
+export REGION="us-central1"
 
 # Run the Flex Template.
 gcloud dataflow flex-template run "itd-kf-kf-filtering" \

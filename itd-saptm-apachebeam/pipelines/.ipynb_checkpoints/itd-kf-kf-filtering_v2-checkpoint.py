@@ -39,6 +39,7 @@ def compare_messages(kafka_message, columns_to_compare):
     
 def logging_dq(element):
     logging.warning(test_dq.test_method(element[1].decode('UTF-8')))
+    return element
 
 def run(
     bootstrap_servers,
@@ -56,19 +57,26 @@ def run(
 
     with beam.Pipeline(options=options) as p:
 
-        consumer_config = {
-            "bootstrap.servers": bootstrap_servers,
-            "group.id": group_id,
-        }
+        consumer_config = {"bootstrap.servers": bootstrap_servers}
+        producer_config={'bootstrap.servers': bootstrap_servers}
+        
+        if group_id is not None:
+            consumer_config["group.id"]= group_id
+            producer_config["group.id"]= group_id
+        
         if sasl_mechanism is not None:
             consumer_config["sasl.mechanism"]= sasl_mechanism
+            producer_config["sasl.mechanism"]= sasl_mechanism
 
         if sasl_mechanism is not None > 0:
             consumer_config["security.protocol"]= security_protocol
+            producer_config["security.protocol"]= security_protocol
             
         if username is not None > 0 and password is not None> 0:
             credentials = 'org.apache.kafka.common.security.plain.PlainLoginModule required serviceName="Kafka" username="' + username+'" password="'+password+'";'
             consumer_config["sasl.jaas.config"]= credentials
+            producer_config["sasl.jaas.config"]= credentials
+            
             
         topics = topics.split(",")
         columns = columns_to_compare.split(",")
@@ -85,6 +93,14 @@ def run(
                 | "decode messages" >> beam.Map(lambda x: x.decode("utf-8"))
                 | "comparing columns" >> beam.FlatMap(compare_messages, columns_to_compare_this_topic)
                 | "Display messages" >> beam.Map(logging_dq)
+                
+                | "adding kafka key" >> beam.Map( 
+                    lambda x: ( b'unique_key', x.encode("utf-8") )
+                ).with_output_types(typing.Tuple[bytes, bytes])
+                | "Write to kafka" >> WriteToKafka(
+                    producer_config= producer_config,
+                    topic= output_topic
+                )
             )
 
 

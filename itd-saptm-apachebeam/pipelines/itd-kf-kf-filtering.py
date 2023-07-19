@@ -41,7 +41,7 @@ def run(
     password
     ) -> None:
 
-    options = PipelineOptions(save_main_session=True, streaming=True, runner=beam.runners.DirectRunner() )
+    options = PipelineOptions(save_main_session=True, streaming=True) #, runner=beam.runners.DirectRunner() )
 
     with beam.Pipeline(options=options) as p:
 
@@ -67,7 +67,7 @@ def run(
             "sasl.mechanism": "PLAIN",
             "security.protocol": "SASL_SSL",
             "sasl.jaas.config": 'org.apache.kafka.common.security.plain.PlainLoginModule required serviceName="Kafka" username="FQLECRTXM6NS7EHY" password="LJ+HrWWdLIuDSZH0TkLF6mXBbSUDL5RfaMR4GNMJNfx1gRtdjWb5vZEim8gjUiLk";'
-    }
+        }
 
         stream_data = (p
                        | "Reading messages from Kafka" >> ReadFromKafka(
