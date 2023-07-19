@@ -1,0 +1,67 @@
+{
+  "name": "itd-kf-kf-filtering Python flex template",
+  "description": "test",
+  "parameters": [
+    {
+      "name": "bootstrap_servers",
+      "label": "bootstrap_servers",
+      "helpText": "Example: localhost:9200"
+    },
+    {
+      "name": "group_id",
+      "label": "group_id",
+      "helpText": "Example: group1"
+    },
+    {
+      "name": "topics",
+      "label": "topics",
+      "helpText": "Example: topic1,topic2"
+    },
+    {
+      "name": "output_topic",
+      "label": "output_topic",
+      "helpText": "output_topic"
+    },
+    {
+      "name": "start_read_time",
+      "label": "start_read_time",
+      "helpText": "start_read_time",
+      "isOptional": true
+    },
+    {
+      "name": "commit_offset_in_finalize",
+      "label": "commit_offset_in_finalize",
+      "helpText": "commit_offset_in_finalize",
+      "isOptional": true
+    },
+    {
+      "name": "sasl_mechanism",
+      "label": "sasl_mechanism",
+      "helpText": "Example: PLAIN",
+      "isOptional": true  
+    },
+    {
+      "name": "security_protocol",
+      "label": "security_protocol",
+      "helpText": "Example: SASL_SSL",
+      "isOptional": true
+    },
+    {
+      "name": "username",
+      "label": "username",
+      "helpText": "Example: user1",
+      "isOptional": true
+    },
+    {
+      "name": "password",
+      "label": "password",
+      "helpText": "Example: password1",
+      "isOptional": true
+    },
+    {
+      "name": "columns_to_compare",
+      "label": "columns_to_compare",
+      "helpText": "columns_to_compare"
+    }
+  ]
+}
