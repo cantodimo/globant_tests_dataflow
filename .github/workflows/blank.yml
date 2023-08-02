@@ -47,13 +47,15 @@ jobs:
       - uses: actions/checkout@v3
       
       - name: 'build docker image'
-        run: 'docker build -t nombre_usuario/local_image:latest -f itd-saptm-apachebeam_v2/Dockerfile itd-saptm-apachebeam_v2'
+        run: 'docker build -t camilo/local_image:latest -f itd-saptm-apachebeam_v2/Dockerfile itd-saptm-apachebeam_v2'
 
       - name: 'docker auth'
         run: 'gcloud auth configure-docker gcr.io'
         
-      - name: 'docker auth'
-        run: 'docker push gcr.io/rosy-zoo-390619/gitlab_test/image_from_github:latest'
+      - name: 'docker push'
+        run:
+          docker tag local_image:latest gcr.io/rosy-zoo-390619/gitlab_test/image_from_github:latest
+          docker push gcr.io/rosy-zoo-390619/gitlab_test/image_from_github:latest
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
