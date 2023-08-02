@@ -53,7 +53,7 @@ jobs:
         run: 'gcloud auth configure-docker gcr.io'
         
       - name: 'docker push'
-        run:
+        run: |
           docker tag local_image:latest gcr.io/rosy-zoo-390619/gitlab_test/image_from_github:latest
           docker push gcr.io/rosy-zoo-390619/gitlab_test/image_from_github:latest
 
