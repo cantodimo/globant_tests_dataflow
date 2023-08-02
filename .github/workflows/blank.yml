@@ -26,10 +26,10 @@ jobs:
     steps:
       - name: 'gcp auth with workload'
         id: 'auth'
-        uses: 'google-github-actions/auth@v1'
-        with:
-          workload_identity_provider: 'projects/760721552379/locations/global/workloadIdentityPools/my-pool/providers/my-provider'
-          service_account: 'service-account-ci-cd-github@rosy-zoo-390619.iam.gserviceaccount.com'
+        #uses: 'google-github-actions/auth@v1'
+        #with:
+        #  workload_identity_provider: 'projects/760721552379/locations/global/workloadIdentityPools/my-pool/providers/my-provider'
+        #  service_account: 'service-account-ci-cd-github@rosy-zoo-390619.iam.gserviceaccount.com'
 
       - name: 'Set up Cloud SDK'
         uses: 'google-github-actions/setup-gcloud@v1'
