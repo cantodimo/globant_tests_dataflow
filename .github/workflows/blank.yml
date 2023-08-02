@@ -46,8 +46,8 @@ jobs:
       - name: 'Use gcloud CLI'
         run: 'gcloud info'
       
-      #- name: 'build docker image'
-      #  run: 'docker build -t local_image:latest -f itd-saptm-apachebeam_v2/Dockerfile itd-saptm-apachebeam_v2'
+      - name: 'build docker image'
+        run: 'docker build -t local_image:latest -f itd-saptm-apachebeam_v2/Dockerfile itd-saptm-apachebeam_v2'
 
       - name: 'print creds file'
         run: ls -lh /home/runner/work/globant_tests_dataflow/globant_tests_dataflow/
