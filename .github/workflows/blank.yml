@@ -50,12 +50,17 @@ jobs:
         run: 'docker build -t local_image:latest -f itd-saptm-apachebeam_v2/Dockerfile itd-saptm-apachebeam_v2'
 
       - name: 'docker auth'
-        run: gcloud auth configure-docker gcr.io --quiet
-        
-      - name: 'docker push'
+        run: gcloud auth configure-docker --quiet
+      
+      - name: 'push image to gcr'
         run: |
-          docker tag local_image:latest gcr.io/rosy-zoo-390619/gitlab_test/image_from_github:latest
-          docker push gcr.io/rosy-zoo-390619/gitlab_test/image_from_github:latest
+           docker tag local_image:latest gcr.io/rosy-zoo-390619/gitlab_test/image_from_github:latest
+           gcloud -- push gcr.io/rosy-zoo-390619/gitlab_test/image_from_github:lates
+          
+      #- name: 'docker push'
+      #  run: |
+      #    docker tag local_image:latest gcr.io/rosy-zoo-390619/gitlab_test/image_from_github:latest
+      #    docker push gcr.io/rosy-zoo-390619/gitlab_test/image_from_github:latest
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
