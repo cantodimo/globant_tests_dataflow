@@ -55,7 +55,7 @@ jobs:
       - name: 'push image to gcr'
         run: |
            docker tag local_image:latest gcr.io/rosy-zoo-390619/gitlab_test/image_from_github:latest
-           gcloud -- push gcr.io/rosy-zoo-390619/gitlab_test/image_from_github:lates
+           gcloud docker -- push gcr.io/rosy-zoo-390619/gitlab_test/image_from_github:lates
           
       #- name: 'docker push'
       #  run: |
