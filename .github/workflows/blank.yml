@@ -59,6 +59,9 @@ jobs:
         run: |
            docker tag local_image:latest gcr.io/rosy-zoo-390619/gitlab_test/image_from_github:latest
            gcloud docker -- push gcr.io/rosy-zoo-390619/gitlab_test/image_from_github:latest
+
+      - name: 'test deploy with sh commands'
+        run: source itd-saptm-apachebeam_v2/deploy_github_actions.sh
           
       #- name: 'docker push'
       #  run: |
