@@ -18,7 +18,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  build_docker_image2:
+  build_docker_image3:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     
@@ -45,6 +45,15 @@ jobs:
         
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
+      
+      - name: 'build docker image'
+        run: 'docker build -t nombre_usuario/local_image:latest -f itd-saptm-apachebeam_v2/Dockerfile itd-saptm-apachebeam_v2'
+
+      - name: 'docker auth'
+        run: 'gcloud auth configure-docker gcr.io'
+        
+      - name: 'docker auth'
+        run: 'docker push gcr.io/rosy-zoo-390619/gitlab_test/image_from_github:latest'
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
