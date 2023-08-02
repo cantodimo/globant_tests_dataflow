@@ -50,7 +50,7 @@ jobs:
         run: 'docker build -t local_image:latest -f itd-saptm-apachebeam_v2/Dockerfile itd-saptm-apachebeam_v2'
 
       - name: 'docker auth'
-        run: 'gcloud auth configure-docker gcr.io'
+        run: gcloud auth configure-docker gcr.io --quiet
         
       - name: 'docker push'
         run: |
