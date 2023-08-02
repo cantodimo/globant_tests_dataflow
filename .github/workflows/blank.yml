@@ -28,6 +28,9 @@ jobs:
     
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3  
+    
       - name: 'gcp auth with workload'
         id: 'auth'
         uses: 'google-github-actions/auth@v1'
@@ -42,15 +45,15 @@ jobs:
 
       - name: 'Use gcloud CLI'
         run: 'gcloud info'
-        
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
       
-      - name: 'build docker image'
-        run: 'docker build -t local_image:latest -f itd-saptm-apachebeam_v2/Dockerfile itd-saptm-apachebeam_v2'
+      #- name: 'build docker image'
+      #  run: 'docker build -t local_image:latest -f itd-saptm-apachebeam_v2/Dockerfile itd-saptm-apachebeam_v2'
 
-      - name: 'docker auth'
-        run: gcloud auth configure-docker --quiet
+      - name: 'print creds file'
+        run: ls -lh /home/runner/work/globant_tests_dataflow/globant_tests_dataflow/
+
+      #- name: 'docker auth'
+      #  run: gcloud auth configure-docker --quiet
       
       - name: 'push image to gcr'
         run: |
