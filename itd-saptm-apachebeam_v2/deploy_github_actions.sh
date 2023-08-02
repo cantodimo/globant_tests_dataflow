@@ -8,7 +8,7 @@ export TEMPLATE_PATH="gs://$BUCKET/gitlab_test/itd-saptm-apachebeam/streaming.js
 gcloud dataflow flex-template build $TEMPLATE_PATH \
   --image "$TEMPLATE_IMAGE" \
   --sdk-language "PYTHON" \
-  --metadata-file "metadata/itd-kf-kf-filtering.json"
+  --metadata-file "itd-saptm-apachebeam_v2/metadata/itd-kf-kf-filtering.json"
 
 #export REGION="us-east1"
 export REGION="us-west4"
