@@ -56,7 +56,7 @@ jobs:
 
       - name: 'make flex template'
         run: |
-          export PROJECT="$(gcloud config get-value project)"
+          export PROJECT="rosy-zoo-390619"
           export BUCKET="dataflow_bucket_camilo_diaz"
           export TEMPLATE_IMAGE="gcr.io/$PROJECT/gitlab_test/image_from_github:latest"
           export TEMPLATE_PATH="gs://$BUCKET/gitlab_test/itd-saptm-apachebeam/streaming.json"
