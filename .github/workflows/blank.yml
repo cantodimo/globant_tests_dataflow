@@ -60,7 +60,7 @@ jobs:
           BUCKET="dataflow_bucket_camilo_diaz"
           TEMPLATE_IMAGE="gcr.io/$PROJECT/gitlab_test/image_from_github:latest"
           TEMPLATE_PATH="gs://$BUCKET/gitlab_test/itd-saptm-apachebeam/streaming.json"
-          gcloud dataflow flex-template build $TEMPLATE_PATH --image "$TEMPLATE_IMAGE" --sdk-language "PYTHON" --metadata-file "itd-saptm-apachebeam_v2/metadata/itd-kf-kf-filtering.json"'
+          gcloud dataflow flex-template build $TEMPLATE_PATH --image "$TEMPLATE_IMAGE" --sdk-language "PYTHON" --metadata-file "itd-saptm-apachebeam_v2/metadata/itd-kf-kf-filtering.json"
 
 #- name: 'test deploy with sh commands'
       #  run: source itd-saptm-apachebeam_v2/deploy_github_actions.sh
