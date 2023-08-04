@@ -105,20 +105,21 @@ jobs:
         run: |
           rm -rf .terraform
           terraform version
-          terraform init -backend-config=backend.tfvars -upgrade=true -no-color terraform
+      - name: terraform_init
+          terraform init -backend-config=backend.tfvars -upgrade=true -no-color -chdir=terraform
       - name: Validate
         run: |
-          terraform fmt
-          terraform validate
+          terraform fmt -chdir=terraform
+          terraform validate -chdir=terraform
       - name: Plan Creation
         run: |
-          terraform plan -input=false -out=tfplan terraform
-          terraform show
+          terraform plan -input=false -out=tfplan -chdir=terraform
+          terraform show -chdir=terraform
       - name: Apply tfplan
         env:
           TF_LOG: DEBUG
         run: |
-          terraform apply -auto-approve -refresh=true terraform
+          terraform apply -auto-approve -refresh=true -chdir=terraform
 
 #      - name: 'run dataflow template'
 #        run: |
