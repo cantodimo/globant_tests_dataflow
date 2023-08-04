@@ -106,7 +106,7 @@ jobs:
           rm -rf .terraform
           terraform version
       - name: terraform_init
-        run: terraform init -backend-config=backend.tfvars -upgrade=true -no-color -chdir=terraform
+        run: terraform init -backend-config=backend.tfvars -upgrade=true -no-color #-chdir=terraform
       - name: Validate
         run: |
           terraform fmt -chdir=terraform
