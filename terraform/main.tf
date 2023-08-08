@@ -24,7 +24,7 @@ terraform {
 
 }
 
-resource "google_dataflow_flex_template_job" "ejecutar_job" {
+resource "google_dataflow_flex_template_job.dataflow_flex_template_job" "ejecutar_job" {
 
   project               = local.project_id
   name                  = local.df_job_name
