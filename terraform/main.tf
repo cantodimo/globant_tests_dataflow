@@ -25,6 +25,11 @@ terraform {
       source  = "hashicorp/google"
       version = ">= 3.52.0"
     }
+
+    docker = {
+      source = "kreuzwerker/docker"
+      version = "3.0.2"
+    }
   }
 
 }
