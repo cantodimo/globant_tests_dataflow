@@ -82,7 +82,13 @@ jobs:
     permissions:
       contents: 'read'
       id-token: 'write'
-    
+
+    defaults:
+      run:
+        shell: bash
+        #Inform a working directory if .tf files are not in root folder
+        working-directory: ./terraform 
+        
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -114,25 +120,31 @@ jobs:
 
       - name: Preparation step
         run: |
-          cd terraform
+          #cd terraform
           rm -rf .terraform
           terraform version
           terraform providers
       - name: terraform_init
-        run: terraform -chdir=terraform init -backend-config=terraform/backend.tfvars -upgrade=true -no-color #-chdir=terraform
+        #run: terraform -chdir=terraform init -backend-config=terraform/backend.tfvars -upgrade=true -no-color
+        run: terraform init -backend-config=terraform/backend.tfvars -upgrade=true -no-color
       - name: Validate
         run: |
-          terraform -chdir=terraform fmt #-chdir=terraform
-          terraform -chdir=terraform validate #-chdir=terraform
+          #terraform -chdir=terraform fmt #-chdir=terraform
+          #terraform -chdir=terraform validate #-chdir=terraform
+          terraform fmt
+          terraform validate
       - name: Plan Creation
         run: |
-          terraform -chdir=terraform plan -input=false -out=tfplan #-chdir=terraform
-          terraform -chdir=terraform show #-chdir=terraform
+          #terraform -chdir=terraform plan -input=false -out=tfplan
+          #terraform -chdir=terraform show
+          terraform plan -input=false -out=tfplan
+          terraform show
       - name: Apply tfplan
         env:
           TF_LOG: DEBUG
         run: |
-          terraform -chdir=terraform apply -auto-approve -refresh=true #-chdir=terraform
+          #terraform -chdir=terraform apply -auto-approve -refresh=true #-chdir=terraform
+          terraform apply -auto-approve -refresh=true #-chdir=terraform
 
 #      - name: 'run dataflow template'
 #        run: |
