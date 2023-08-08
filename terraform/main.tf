@@ -36,7 +36,7 @@ resource "google_dataflow_flex_template_job" "ejecutar_job" {
   on_delete             = "cancel"
   region                = local.region
   max_workers           = 1
-  temp_gcs_location     = "gs://dataflow-staging-us-west4-760721552379/temp"
+  #temp_gcs_location     = "gs://dataflow-staging-us-west4-760721552379/temp"
   container_spec_gcs_path     = "gs://${local.template_bucket}/gitlab_test/itd-saptm-apachebeam/streaming.json"
   network               = "default"
   parameters = {
