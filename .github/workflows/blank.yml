@@ -106,17 +106,18 @@ jobs:
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v1
         with:
-          terraform_version: 1.4.4
+          terraform_version: 1.5.4
           terraform_installation: true
           provider_installation: true
           provider_selection: "full"
-          provider_versions: "4.53.0"
+          provider_versions: "4.77.0"
 
       - name: Preparation step
         run: |
           cd terraform
           rm -rf .terraform
           terraform version
+          terraform providers
       - name: terraform_init
         run: terraform -chdir=terraform init -backend-config=backend.tfvars -upgrade=true -no-color #-chdir=terraform
       - name: Validate
