@@ -25,7 +25,7 @@ terraform {
 }
 
 resource "google_dataflow_flex_template_job" "ejecutar_job" {
-
+  provider              = google
   project               = local.project_id
   name                  = local.df_job_name
   on_delete             = "cancel"
