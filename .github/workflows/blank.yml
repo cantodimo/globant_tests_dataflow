@@ -101,7 +101,7 @@ jobs:
           version: '>= 363.0.0'
 
       - name: 'Use gcloud CLI'
-        run: 'gcloud info'
+        run: 'gcloud version'
 
 #      - name: Set up Terraform
 #        uses: hashicorp/setup-terraform@v1
@@ -114,8 +114,7 @@ jobs:
 
       - name: Preparation step
         run: |
-          cd terraform
-          rm -rf .terraform
+          rm -rf terraform/.terraform
           terraform version
           terraform providers
       - name: terraform_init
