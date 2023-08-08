@@ -9,6 +9,8 @@ locals {
 
 resource "google_dataflow_job" "dataflow_job" {
   source  = "terraform-google-modules/secured-data-warehouse/google//modules/dataflow-flex-job"
+  version = "~> 0.1"
+
   project               = local.project_id
   name                  = local.df_job_name
   on_delete             = "cancel"
