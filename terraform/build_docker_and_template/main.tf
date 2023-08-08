@@ -23,7 +23,7 @@ provider "docker" {
 resource "docker_image" "dataflow_docker_build" {
     name = "local_image:latest"
 
-    build = {
+    build {
         path = "itd-saptm-apachebeam_v2"
         dockerfile = "itd-saptm-apachebeam_v2.Dockerfile"
     }
