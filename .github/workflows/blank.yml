@@ -110,7 +110,7 @@ jobs:
       - name: Validate
         run: |
           terraform fmt #-chdir=terraform
-          terraform validate -chdir=terraform
+          terraform validate #-chdir=terraform
       - name: Plan Creation
         run: |
           terraform plan -input=false -out=tfplan -chdir=terraform
