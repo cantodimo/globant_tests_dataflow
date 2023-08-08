@@ -12,6 +12,18 @@ provider "google" {
   region  = local.region
 }
 
+terraform {
+  #required_version = ">= 0.13"
+  required_providers {
+
+    google = {
+      source  = "hashicorp/google"
+      version = "4.77.0"
+    }
+  }
+
+}
+
 resource "google_dataflow_flex_template_job" "ejecutar_job" {
 
   project               = local.project_id
