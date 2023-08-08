@@ -7,9 +7,7 @@ locals {
   df_name         = "warranty_inference_engine"
 }
 
-resource "google_dataflow_job" "dataflow_job" {
-  source  = "terraform-google-modules/secured-data-warehouse/google//modules/dataflow-flex-job"
-  version = "~> 0.1"
+resource "google_dataflow_flex_template_job" "dataflow_job" {
 
   project               = local.project_id
   name                  = local.df_job_name
