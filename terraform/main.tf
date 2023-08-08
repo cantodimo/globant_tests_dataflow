@@ -7,9 +7,12 @@ locals {
   df_name         = "warranty_inference_engine"
 }
 
-module "dataflow-flex-job" {
-  source  = "terraform-google-modules/secured-data-warehouse/google//modules/dataflow-flex-job"
-  version = "~> 0.1"
+provider "google" {
+  project = local.project_id
+  region  = local.region
+}
+
+resource "google_dataflow_flex_template_job" "ejecutar_job" {
 
   project               = local.project_id
   name                  = local.df_job_name
@@ -17,7 +20,7 @@ module "dataflow-flex-job" {
   region                = local.region
   max_workers           = 1
   temp_gcs_location     = "gs://dataflow-staging-us-west4-760721552379/temp"
-  container_spec_gcs_path = "gs://${local.template_bucket}/gitlab_test/itd-saptm-apachebeam/streaming.json"
+  template_gcs_path     = "gs://${local.template_bucket}/gitlab_test/itd-saptm-apachebeam/streaming.json"
   network               = "default"
   parameters = {
     bootstrap_servers = "35.193.114.205:9092"
