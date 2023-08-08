@@ -119,7 +119,7 @@ jobs:
           terraform version
           terraform providers
       - name: terraform_init
-        run: terraform -chdir=terraform init -backend-config=backend.tfvars -upgrade=true -no-color #-chdir=terraform
+        run: terraform -chdir=terraform init -backend-config=terraform/backend.tfvars -upgrade=true -no-color #-chdir=terraform
       - name: Validate
         run: |
           terraform -chdir=terraform fmt #-chdir=terraform
