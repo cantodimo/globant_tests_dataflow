@@ -25,6 +25,6 @@ resource "docker_image" "dataflow_docker_build" {
 
     build {
         path = "itd-saptm-apachebeam_v2"
-        dockerfile = "itd-saptm-apachebeam_v2.Dockerfile"
+        dockerfile = "itd-saptm-apachebeam_v2/Dockerfile"
     }
 }
