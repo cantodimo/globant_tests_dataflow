@@ -103,6 +103,11 @@ jobs:
       - name: 'Use gcloud CLI'
         run: 'gcloud info'
 
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 3.53.0
+
       - name: Preparation step
         run: |
           cd terraform
