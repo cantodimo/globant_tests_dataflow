@@ -114,6 +114,7 @@ jobs:
 
       - name: Preparation step
         run: |
+          cd terraform
           rm -rf .terraform
           terraform version
           terraform providers
