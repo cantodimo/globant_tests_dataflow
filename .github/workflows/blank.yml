@@ -103,6 +103,7 @@ jobs:
 
       - name: Preparation step
         run: |
+          cd terraform
           rm -rf .terraform
           terraform version
       - name: terraform_init
