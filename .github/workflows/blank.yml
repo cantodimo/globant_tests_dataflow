@@ -109,7 +109,7 @@ jobs:
         run: terraform init -backend-config=backend.tfvars -upgrade=true -no-color #-chdir=terraform
       - name: Validate
         run: |
-          terraform fmt -chdir=terraform
+          terraform fmt #-chdir=terraform
           terraform validate -chdir=terraform
       - name: Plan Creation
         run: |
