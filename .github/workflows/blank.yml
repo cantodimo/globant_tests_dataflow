@@ -114,7 +114,7 @@ jobs:
           terraform validate #-chdir=terraform
       - name: Plan Creation
         run: |
-          terraform plan -input=false -out=tfplan #-chdir=terraform
+          terraform -chdir=terraform -input=false -out=tfplan plan #-chdir=terraform
           terraform show #-chdir=terraform
       - name: Apply tfplan
         env:
