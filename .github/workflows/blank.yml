@@ -114,7 +114,7 @@ jobs:
 
       - name: Preparation step
         run: |
-          rm -rf terraform/.terraform
+          rm -rf .terraform
           terraform version
           terraform providers
       - name: terraform_init
