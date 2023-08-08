@@ -105,12 +105,12 @@ jobs:
 
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v1
-        with:
-          terraform_version: 1.5.4
-          terraform_installation: true
-          provider_installation: true
-          provider_selection: "full"
-          provider_versions: "4.77.0"
+#        with:
+#          terraform_version: 1.5.4
+#          terraform_installation: true
+#          provider_installation: true
+#          provider_selection: "full"
+#          provider_versions: "4.77.0"
 
       - name: Preparation step
         run: |
