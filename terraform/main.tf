@@ -7,7 +7,7 @@ locals {
   df_name         = "warranty_inference_engine"
 }
 
-provider "google" {
+provider "google-beta" {
   project = local.project_id
   region  = local.region
 }
@@ -16,7 +16,7 @@ terraform {
   #required_version = ">= 0.13"
   required_providers {
 
-    google = {
+    google-beta = {
       source  = "hashicorp/google"
       version = "4.77.0"
     }
@@ -25,7 +25,7 @@ terraform {
 }
 
 resource "google_dataflow_flex_template_job" "ejecutar_job" {
-  provider              = google
+  provider              = google-beta
   project               = local.project_id
   name                  = local.df_job_name
   on_delete             = "cancel"
