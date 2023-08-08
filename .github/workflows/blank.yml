@@ -109,8 +109,9 @@ jobs:
       - name: 'Use gcloud CLI'
         run: 'gcloud version'
 
-#      - name: Set up Terraform
-#        uses: hashicorp/setup-terraform@v1
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v1
+
 #        with:
 #          terraform_version: 1.5.4
 #          terraform_installation: true
@@ -127,6 +128,10 @@ jobs:
       - name: terraform_init
         #run: terraform -chdir=terraform init -backend-config=terraform/backend.tfvars -upgrade=true -no-color
         run: terraform init -backend-config=terraform/backend.tfvars -upgrade=true -no-color
+      - name: print things
+        run: |
+          terraform version
+          terraform providers
       - name: Validate
         run: |
           #terraform -chdir=terraform fmt #-chdir=terraform
