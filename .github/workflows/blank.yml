@@ -113,13 +113,13 @@ jobs:
           terraform validate #-chdir=terraform
       - name: Plan Creation
         run: |
-          terraform plan -input=false -out=tfplan -chdir=terraform
-          terraform show -chdir=terraform
+          terraform plan -input=false -out=tfplan #-chdir=terraform
+          terraform show #-chdir=terraform
       - name: Apply tfplan
         env:
           TF_LOG: DEBUG
         run: |
-          terraform apply -auto-approve -refresh=true -chdir=terraform
+          terraform apply -auto-approve -refresh=true #-chdir=terraform
 
 #      - name: 'run dataflow template'
 #        run: |
