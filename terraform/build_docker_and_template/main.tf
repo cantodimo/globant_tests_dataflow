@@ -1,9 +1,5 @@
-output "current_directory" {
-  value = path.module
-}
-
-output "current_directory2" {
-  value = path.root
+variable "template_metadata_path" {
+  description = "path from metadata json file"
 }
 
 output "current_directory3" {
@@ -17,6 +13,18 @@ locals {
   df_job_name     = "test-from-terraform"
   region          = "us-west4"
   df_name         = "warranty_inference_engine"
+
+  full_json_file_path = "${path.module}/${var.template_metadata_path}"
+  json_content = jsondecode(file(local.full_json_file_path))
+  template_content = jsonencode({
+        image = "gcr.io/rosy-zoo-390619/gitlab_test/image_from_github:latest"
+        sdkInfo = {
+            language = "PYTHON"
+        }
+        metadata = json_content
+    })
+
+    template_gcs_path = gs://dataflow_bucket_camilo_diaz/gitlab_test/itd-saptm-apachebeam/${base64encode(md5(local.template_content))}/metadata.json"
 }
 
 terraform {
@@ -43,6 +51,16 @@ resource "docker_image" "dataflow_docker_build" {
         path = "itd-saptm-apachebeam_v2"
         dockerfile = "Dockerfile"
     }
+}
+
+# there is not equivalent from gcloud flex template build on terraform, so this reproduces its behavior
+resource "google_storage_bucket_object" "flex_template_metadata" {
+    depends_on   = docker_image.dataflow_docker_build
+    bucket       = "dataflow_bucket_camilo_diaz"
+    name         = local.template_gcs_path
+    content_type = "application/json"
+
+    content = local.template_content
 }
 
 #I belive that it doesnt work due the workload identity permission, maybe it need more setup con cloud sdk
