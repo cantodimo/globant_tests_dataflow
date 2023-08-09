@@ -54,14 +54,14 @@ resource "docker_image" "dataflow_docker_build" {
 }
 
 # there is not equivalent from gcloud flex template build on terraform, so this reproduces its behavior
-resource "google_storage_bucket_object" "flex_template_metadata" {
-    depends_on   = [docker_image.dataflow_docker_build]
-    bucket       = "dataflow_bucket_camilo_diaz"
-    name         = local.template_gcs_path
-    content_type = "application/json"
+#resource "google_storage_bucket_object" "flex_template_metadata" {
+#    depends_on   = [docker_image.dataflow_docker_build]
+#    bucket       = "dataflow_bucket_camilo_diaz"
+#    name         = local.template_gcs_path
+#    content_type = "application/json"
 
-    content = local.template_content
-}
+#    content = local.template_content
+#}
 
 #I belive that it doesnt work due the workload identity permission, maybe it need more setup con cloud sdk
 #resource "docker_registry_image" "dataflow_docker_build" {
