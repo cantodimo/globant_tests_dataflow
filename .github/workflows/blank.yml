@@ -82,7 +82,7 @@ jobs:
         env:
           TF_LOG: DEBUG
         run: |
-          terraform apply -auto-approve -refresh=true #-chdir=terraform
+          terraform apply -auto-approve -refresh=true -var="template_metadata_path=itd-saptm-apachebeam_v2/metadata/itd-kf-kf-filtering.json"
 
       
       #- name: 'build docker image'
