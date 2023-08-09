@@ -36,13 +36,20 @@ provider "docker" {
   }
 }
 
+#resource "docker_image" "dataflow_docker_build" {
+#    name = "local_image:latest"
+
+#    build {
+#        path = "itd-saptm-apachebeam_v2"
+#        dockerfile = "Dockerfile"
+#    }
+#}
+
 resource "docker_registry_image" "dataflow_docker_build" {
     provider  = docker.private
-    #name = "local_image:latest"
     name = "gcr.io/rosy-zoo-390619/gitlab_test/image_from_github:latest"
 
     build {
-        path = "itd-saptm-apachebeam_v2"
-        dockerfile = "Dockerfile"
+        context = "itd-saptm-apachebeam_v2"
     }
 }
