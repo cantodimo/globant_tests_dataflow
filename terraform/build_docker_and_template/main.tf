@@ -2,6 +2,14 @@ output "current_directory" {
   value = path.module
 }
 
+output "current_directory2" {
+  value = path.root
+}
+
+output "current_directory3" {
+  value = path.cwd
+}
+
 locals {
   gcs_bucket_name = "dataflow_bucket_camilo_diaz"
   template_bucket = "dataflow_bucket_camilo_diaz"
