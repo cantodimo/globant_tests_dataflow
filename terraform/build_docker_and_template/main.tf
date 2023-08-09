@@ -30,10 +30,16 @@ terraform {
 }
 
 provider "docker" {
+  alias = "private"
+  registry_auth {
+    address = "gcr.io"
+  }
 }
 
 resource "docker_image" "dataflow_docker_build" {
-    name = "local_image:latest"
+    provider  = docker.private
+    #name = "local_image:latest"
+    name = "gcr.io/rosy-zoo-390619/gitlab_test/image_from_github:latest"
 
     build {
         path = "itd-saptm-apachebeam_v2"
