@@ -57,6 +57,11 @@ jobs:
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v1
 
+      - name: 'move pipeline folder to actual workdir'
+        run: |
+          cp -r /home/runner/work/globant_tests_dataflow/globant_tests_dataflow/itd-saptm-apachebeam_v2 .
+          ls
+
       - name: Preparation step
         run: |
           rm -rf .terraform
