@@ -21,7 +21,7 @@ locals {
         sdkInfo = {
             language = "PYTHON"
         }
-        metadata = json_content
+        metadata = local.json_content
     })
 
     template_gcs_path = "gs://dataflow_bucket_camilo_diaz/gitlab_test/itd-saptm-apachebeam/${base64encode(md5(local.template_content))}/metadata.json"
