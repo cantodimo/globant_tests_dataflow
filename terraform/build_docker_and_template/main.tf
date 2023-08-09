@@ -36,20 +36,21 @@ provider "docker" {
   #}
 }
 
-#resource "docker_image" "dataflow_docker_build" {
-#    name = "local_image:latest"
-
-#    build {
-#        path = "itd-saptm-apachebeam_v2"
-#        dockerfile = "Dockerfile"
-#    }
-#}
-
-resource "docker_registry_image" "dataflow_docker_build" {
-    provider  = docker.private
-    name = "gcr.io/rosy-zoo-390619/gitlab_test/image_from_github:latest"
+resource "docker_image" "dataflow_docker_build" {
+    name = "local_image:latest"
 
     build {
-        context = "itd-saptm-apachebeam_v2"
+        path = "itd-saptm-apachebeam_v2"
+        dockerfile = "Dockerfile"
     }
 }
+
+#I belive that it doesnt work due the workload identity permission, maybe it need more setup con cloud sdk
+#resource "docker_registry_image" "dataflow_docker_build" {
+#    provider  = docker.private
+#    name = "gcr.io/rosy-zoo-390619/gitlab_test/image_from_github:latest"
+
+#    build {
+#        context = "itd-saptm-apachebeam_v2"
+#    }
+#}
