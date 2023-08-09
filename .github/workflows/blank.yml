@@ -76,7 +76,7 @@ jobs:
           terraform validate
       - name: Plan Creation
         run: |
-          terraform plan -input=false -out=tfplan
+          terraform plan -input=false -out=tfplan -var="template_metadata_path=itd-saptm-apachebeam_v2/metadata/itd-kf-kf-filtering.json"
           terraform show
       - name: Apply tfplan
         env:
