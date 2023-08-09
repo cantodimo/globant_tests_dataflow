@@ -115,7 +115,7 @@ jobs:
     runs-on: ubuntu-latest
     #if: ${{ false }}
     if: ${{ always() && contains(join(needs.*.result, ','), 'success') }} 
-    #needs: build_docker_image
+    needs: build_docker_image
     
     permissions:
       contents: 'read'
