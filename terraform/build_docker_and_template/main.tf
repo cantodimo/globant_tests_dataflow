@@ -1,3 +1,7 @@
+output "current_directory" {
+  value = path.module
+}
+
 locals {
   gcs_bucket_name = "dataflow_bucket_camilo_diaz"
   template_bucket = "dataflow_bucket_camilo_diaz"
