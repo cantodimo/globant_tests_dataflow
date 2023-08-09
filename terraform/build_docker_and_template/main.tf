@@ -36,7 +36,7 @@ provider "docker" {
   }
 }
 
-resource "docker_image" "dataflow_docker_build" {
+resource "docker_registry_image" "dataflow_docker_build" {
     provider  = docker.private
     #name = "local_image:latest"
     name = "gcr.io/rosy-zoo-390619/gitlab_test/image_from_github:latest"
