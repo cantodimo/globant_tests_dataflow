@@ -31,9 +31,9 @@ terraform {
 
 provider "docker" {
   alias = "private"
-  registry_auth {
-    address = "gcr.io"
-  }
+  #registry_auth {
+  #  address = "gcr.io"
+  #}
 }
 
 #resource "docker_image" "dataflow_docker_build" {
