@@ -37,6 +37,6 @@ resource "docker_image" "dataflow_docker_build" {
 
     build {
         path = "itd-saptm-apachebeam_v2"
-        dockerfile = "/home/runner/work/globant_tests_dataflow/globant_tests_dataflow/itd-saptm-apachebeam_v2/Dockerfile"
+        dockerfile = "itd-saptm-apachebeam_v2/Dockerfile"
     }
 }
