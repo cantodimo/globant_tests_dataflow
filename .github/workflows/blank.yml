@@ -49,7 +49,7 @@ jobs:
       - name: 'Set up Cloud SDK'
         uses: 'google-github-actions/setup-gcloud@v1'
         with:
-          version: '442.0.0'
+          version: '>= 442.0.0' #'442.0.0'
 
       - name: 'Use gcloud CLI'
         run:  |
