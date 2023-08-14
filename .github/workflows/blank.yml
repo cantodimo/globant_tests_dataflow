@@ -53,10 +53,11 @@ jobs:
 
       - name: 'Use gcloud CLI'
         run:  |
+          sudo apt-get update && sudo apt-get install google-cloud-cli
           lsb_release -a
           ls
           pwd
-          'gcloud info'
+          gcloud info
 
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v1
